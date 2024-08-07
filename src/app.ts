@@ -16,7 +16,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: 'https://roaring-gingersnap-c40d5f.netlify.app/', 
+    origin: '*', 
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
     allowedHeaders: [
       "Origin",
