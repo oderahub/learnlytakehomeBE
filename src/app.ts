@@ -16,7 +16,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: '*', // Specify the exact origin(s) here
+    origin: '*', 
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
     allowedHeaders: [
       "Origin",
