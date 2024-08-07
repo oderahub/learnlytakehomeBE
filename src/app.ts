@@ -16,7 +16,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: '*', 
+    origin: 'https://learnly-vue--wheat.vercel.app/', 
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
     allowedHeaders: [
       "Origin",
