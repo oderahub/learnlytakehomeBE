@@ -14,11 +14,21 @@ dotenv.config();
 const app = express();
 
 
-app.use(cors({
-  origin: 'http://localhost:8080', 
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-}));
+app.use(
+  cors({
+    origin: '*', // Specify the exact origin(s) here
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
+    allowedHeaders: [
+      "Origin",
+      "X-Requested-With",
+      "Content-Type",
+      "Authorization",
+    ],
+  })
+);
+
+// app.options('*', cors());
+
 app.use(bodyParser.json());
 app.use(requestLogger); 
 

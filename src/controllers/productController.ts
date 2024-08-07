@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import asyncHandler from '../utils/asyncHandler';
 import * as productService from '../services/productService';
+import cloudinary from '../config/cloudinaryConfig';
 
 /**
  * @swagger
@@ -71,8 +72,15 @@ export const getProducts = asyncHandler(async (req: Request, res: Response) => {
  *         description: Bad request
  */
 export const createProduct = asyncHandler(async (req: Request, res: Response) => {
-  const { name, description, price, imageURL } = req.body;
+  const { name, description, price } = req.body;
   const createdBy = (req.user as { id: string }).id;
+  let imageURL = '';
+
+  if (req.file) {
+    const result = await cloudinary.uploader.upload(req.file.path);
+    imageURL = result.secure_url;
+  }
+
   const product = await productService.createProduct(name, description, price, imageURL, createdBy);
   res.status(201).json(product);
 });
@@ -115,8 +123,8 @@ export const createProduct = asyncHandler(async (req: Request, res: Response) =>
  */
 export const updateProduct = asyncHandler(async (req: Request, res: Response) => {
   const { id } = req.params;
-  const updates = req.body;
-  const updatedProduct = await productService.updateProduct(id, updates);
+  const {name, description, price} = req.body;
+  const updatedProduct = await productService.updateProduct(id, req.body);
   res.json(updatedProduct);
 });
 
